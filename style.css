@@ -1,0 +1,552 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Georgia', serif;
+  color: #5a4a3f;
+}
+
+nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0);
+  box-shadow: none;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1001;
+}
+
+.hamburger-menu span {
+  width: 25px;
+  height: 3px;
+  background-color: #7d6b4c;
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin: 0 24px;
+}
+
+nav a {
+  display: block;
+  padding: 18px 0;
+  font-size: 1.1rem;
+  color: #7d6b4c;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+nav a:hover, nav a.active {
+  color: #bfa76f;
+}
+
+.container, nav, header, main, section {
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 700px;
+  margin: 80px auto 40px auto;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 18px;
+  box-shadow: none;
+  padding: 80px 80px;
+}
+
+#content {
+  transition: opacity 0.3s ease-in-out;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin: 0 0 8px 0;
+  letter-spacing: 2px;
+  color: #bfa76f;
+}
+
+header h1.handwritten-names {
+  font-family: 'Italianno', cursive;
+  font-size: 6.5rem;
+  font-weight: 400;
+  line-height: 0.6;
+  margin: 0 0 16px 0;
+  color: #bfa76f;
+}
+
+header h1.handwritten-names .name-angela {
+  font-size: 6.5rem;
+  color: #bfa76f;
+}
+
+header h1.handwritten-names .name-marco {
+  font-size: 6.5rem;
+  color: #bfa76f;
+}
+
+header h1.handwritten-names .symbol-ampersand {
+  font-family: 'Italianno', cursive;
+  font-size: 3rem;
+  color: #7d6b4c;
+  position: relative;
+  top: -0.5rem;
+  z-index: -1;
+}
+
+header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #7d6b4c;
+  font-weight: normal;
+}
+
+section {
+  margin-bottom: 32px;
+}
+
+section h2 {
+  font-size: 1.3rem;
+  color: #bfa76f;
+  border-bottom: 1px solid #e5d9c5;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+}
+
+.subsection {
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 1.1rem;
+  color: #7d6b4c;
+  margin-bottom: 6px;
+}
+
+ul {
+  padding-left: 20px;
+  margin: 0 0 10px 0;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+a {
+  color: #bfa76f;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #7d6b4c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* SPA-specific styles */
+.welcome-content {
+  text-align: center;
+}
+
+.welcome-text {
+  margin-bottom: 40px;
+}
+
+.home-image {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 0;
+  padding-top: 24px;
+}
+
+.home-decoration {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  filter: brightness(1.1) contrast(1.1);
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+.welcome-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  color: #7d6b4c;
+}
+
+.wedding-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.detail-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e5d9c5;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.detail-card:hover {
+  transform: translateY(-2px);
+}
+
+.detail-card h3 {
+  color: #bfa76f;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.detail-card p {
+  color: #7d6b4c;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e5d9c5;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.timeline-item .time {
+  font-weight: bold;
+  color: #bfa76f;
+  font-size: 1.1rem;
+  min-width: 60px;
+}
+
+.timeline-item .event {
+  color: #7d6b4c;
+  font-size: 1rem;
+}
+
+.timeline-item:hover {
+  transform: translateY(-2px);
+}
+
+.locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.location-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e5d9c5;
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s ease;
+}
+
+.location-card:hover {
+  transform: translateY(-2px);
+}
+
+.location-card h3 {
+  color: #bfa76f;
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+.location-card p {
+  color: #7d6b4c;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.food-menu {
+  margin: 20px 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.food-menu h4 {
+  color: #bfa76f;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.food-menu ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.food-menu li {
+  color: #7d6b4c;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.contact-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e5d9c5;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+}
+
+.contact-card h3 {
+  color: #bfa76f;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.contact-card p {
+  color: #7d6b4c;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: #bfa76f;
+  color: white !important;
+  text-decoration: none !important;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.map-link:hover {
+  background: #7d6b4c;
+  color: white !important;
+}
+
+@media (max-width: 800px) {
+  .container {
+    max-width: 98vw;
+    padding: 16px 4vw;
+    margin-top: 70px;
+  }
+  .nav-container {
+    justify-content: flex-end;
+    padding: 0 20px;
+  }
+  .hamburger-menu {
+    display: flex;
+    z-index: 10000;
+  }
+  nav ul {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99999;
+    pointer-events: none;
+  }
+  nav ul.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  nav li {
+    margin: 0 0 30px 0;
+    text-align: center;
+  }
+  nav a {
+    padding: 20px 40px;
+    font-size: 1.3rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  nav a:hover {
+    border-color: #bfa76f;
+    background: rgba(191, 167, 111, 0.1);
+  }
+  header h1 {
+    font-size: 2rem;
+  }
+  header h2 {
+    font-size: 1.1rem;
+  }
+  section h2 {
+    font-size: 1.1rem;
+  }
+  .wedding-details {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .locations-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .timeline-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  .timeline-item .time {
+    min-width: auto;
+  }
+  .home-image {
+    padding-top: 8px;
+    margin-bottom: 18px;
+  }
+  .home-decoration {
+    max-height: 200px;
+    margin-bottom: 8px;
+  }
+  .close-menu {
+    display: block;
+  }
+  
+  /* Hide content when menu is open */
+  body.menu-open .container {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.corner-decoration {
+  position: fixed;
+  width: 280px;
+  height: 280px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+  background-image: url('./flower-top-left.png');
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  background-image: url('./flower-top-right.png');
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  background-image: url('./flower-bottom-left.png');
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  background-image: url('./flower-bottom-right.png');
+  background-position: right bottom;
+}
+
+body.menu-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.close-menu {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  font-size: 2.5rem;
+  color: #7d6b4c;
+  cursor: pointer;
+  z-index: 10002;
+  display: none;
+}
+
+/* Add this for home page vertical alignment */
+body.home-section .container {
+  margin-top: 30px;
+}
+
+body.home-section .welcome-content {
+  padding-top: 0;
+  margin-top: 0;
+} 

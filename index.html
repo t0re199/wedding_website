@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invito di Nozze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="corner-decoration top-left"></div>
+  <div class="corner-decoration top-right"></div>
+  <div class="corner-decoration bottom-left"></div>
+  <div class="corner-decoration bottom-right"></div>
+  
+  <nav>
+    <div class="nav-container">
+      <div class="hamburger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="close-menu">&times;</div>
+      <ul class="nav-menu">
+        <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+        <li><a href="#timetable" class="nav-link" data-section="timetable">Programma</a></li>
+        <li><a href="#locations" class="nav-link" data-section="locations">Luoghi</a></li>
+        <li><a href="#contacts" class="nav-link" data-section="contacts">Contatti</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <div id="content">
+      <!-- Content will be dynamically loaded here -->
+    </div>
+  </div>
+
+  <script>
+    // SPA Router and Content Management
+    class WeddingSPA {
+      constructor() {
+        this.currentSection = 'home';
+        this.sections = {
+          home: {
+            title: '',
+            subtitle: '',
+            content: `
+              <div class="welcome-content">
+                <div class="home-image">
+                  <img src="home.png" alt="Angela & Marco" class="home-decoration">
+                </div>
+                <div class="welcome-text">
+                  <p>Benvenuti al nostro giorno speciale! Oggi è finalmente arrivato il momento di celebrare il nostro amore.</p>
+                  <p>Grazie per essere qui con noi in questo momento così importante della nostra vita.</p>
+                </div>
+              </div>
+            `
+          },
+          timetable: {
+            title: "Programma",
+            content: `
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="time">15:00</div>
+                  <div class="event">Cerimonia in Chiesa</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="time">17:00</div>
+                  <div class="event">Reception al Ristorante</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="time">20:00</div>
+                  <div class="event">Cena e Ballo</div>
+                </div>
+              </div>
+            `
+          },
+          locations: {
+            title: "Luoghi",
+            content: `
+              <div class="locations-grid">
+                <div class="location-card">
+                  <h3>⛪ Chiesa</h3>
+                  <p>Santa Maria Novella, Piazza di Santa Maria Novella, Firenze, Italia</p>
+                  <a href="#" class="map-link">Visualizza Chiesa sulla Mappa</a>
+                </div>
+                <div class="location-card">
+                  <h3>🍽️ Ristorante</h3>
+                  <p>La Bella Cucina, Via Roma 123, Firenze, Italia</p>
+                  <div class="food-menu">
+                    <h4>Menu</h4>
+                    <ul>
+                      <li>Antipasto: Insalata Caprese</li>
+                      <li>Primo: Risotto al Tartufo</li>
+                      <li>Dolce: Tiramisù</li>
+                    </ul>
+                  </div>
+                  <a href="#" class="map-link">Visualizza Ristorante sulla Mappa</a>
+                </div>
+              </div>
+            `
+          },
+          contacts: {
+            title: "Contatti",
+            content: `
+              <div class="contact-grid">
+                <div class="contact-card">
+                  <h3>👰 Sposa</h3>
+                  <p>+39 123 456 7890</p>
+                </div>
+                <div class="contact-card">
+                  <h3>🤵 Sposo</h3>
+                  <p>+39 098 765 4321</p>
+                </div>
+              </div>
+            `
+          }
+        };
+        
+        this.init();
+      }
+      
+      init() {
+        this.setupNavigation();
+        this.setupMobileMenu();
+        this.handleInitialRoute();
+        this.setupPopstate();
+      }
+      
+      setupNavigation() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const section = link.getAttribute('data-section');
+            this.navigateTo(section);
+            // Close mobile menu after navigation
+            this.closeMobileMenu();
+          });
+        });
+      }
+      
+      setupMobileMenu() {
+        const hamburger = document.querySelector('.hamburger-menu');
+        hamburger.addEventListener('click', () => {
+          this.toggleMobileMenu();
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('nav')) {
+            this.closeMobileMenu();
+          }
+        });
+        // Close menu when clicking the close (X) button
+        const closeBtn = document.querySelector('.close-menu');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', () => {
+            this.closeMobileMenu();
+          });
+        }
+      }
+      
+      toggleMobileMenu() {
+        const navMenu = document.querySelector('.nav-menu');
+        const hamburger = document.querySelector('.hamburger-menu');
+        
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+        document.body.classList.toggle('menu-open', navMenu.classList.contains('active'));
+      }
+      
+      closeMobileMenu() {
+        const navMenu = document.querySelector('.nav-menu');
+        const hamburger = document.querySelector('.hamburger-menu');
+        
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      }
+      
+      setupPopstate() {
+        window.addEventListener('popstate', (e) => {
+          const section = e.state?.section || 'home';
+          this.loadSection(section, false);
+        });
+      }
+      
+      handleInitialRoute() {
+        const hash = window.location.hash.slice(1);
+        const section = this.sections[hash] ? hash : 'home';
+        this.loadSection(section, false);
+      }
+      
+      navigateTo(section) {
+        if (section === this.currentSection) return;
+        
+        this.loadSection(section, true);
+        window.history.pushState({ section }, '', `#${section}`);
+      }
+      
+      loadSection(section, animate = true) {
+        const contentDiv = document.getElementById('content');
+        const sectionData = this.sections[section];
+        
+        if (!sectionData) return;
+        
+        // Update navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('active');
+        });
+        document.querySelector(`[data-section="${section}"]`).classList.add('active');
+        
+        // Set body class for home section
+        if (section === 'home') {
+          document.body.classList.add('home-section');
+        } else {
+          document.body.classList.remove('home-section');
+        }
+        
+        // Fade out current content
+        if (animate) {
+          contentDiv.style.opacity = '0';
+          setTimeout(() => {
+            this.renderContent(sectionData);
+            contentDiv.style.opacity = '1';
+          }, 300);
+        } else {
+          this.renderContent(sectionData);
+        }
+        
+        this.currentSection = section;
+      }
+      
+      renderContent(sectionData) {
+        const contentDiv = document.getElementById('content');
+        const isHomeSection = this.currentSection === 'home';
+        if (isHomeSection) {
+          // Only show the image for home
+          contentDiv.innerHTML = `
+            <main>
+              <section>
+                ${sectionData.content}
+              </section>
+            </main>
+          `;
+        } else {
+          contentDiv.innerHTML = `
+            <header>
+              <h1 class="${isHomeSection ? 'handwritten-names' : ''}">${sectionData.title}</h1>
+              ${sectionData.subtitle ? `<h2>${sectionData.subtitle}</h2>` : ''}
+            </header>
+            <main>
+              <section>
+                ${sectionData.content}
+              </section>
+            </main>
+          `;
+        }
+      }
+    }
+    
+    // Initialize the SPA when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      new WeddingSPA();
+    });
+  </script>
+</body>
+</html> 
